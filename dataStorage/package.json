@@ -1,0 +1,24 @@
+{
+  "name": "data-logger",
+  "version": "0.0.1",
+  "description": "Basic example that recieves sensor data over a serial port and stores them with a time stamp in one consistent file in the parent directory",
+  "main": "data-logger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node data-logger.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FAR-Lab/data-logger.git"
+  },
+  "author": "Nik Martelaro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FAR-Lab/data-logger/issues"
+  },
+  "homepage": "https://github.com/FAR-Lab/data-logger.git#readme",
+  "dependencies": {
+    "serialport": "^6.1.1",
+    "unix-timestamp": "^0.2.0"
+  }
+}
