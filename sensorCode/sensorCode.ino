@@ -3,7 +3,7 @@
 unsigned long targetTime=0;
 const unsigned long intervall=5;
 void setup(){
-Serial.begin(9600);
+Serial.begin(115200);
 }
 
 

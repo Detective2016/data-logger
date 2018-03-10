@@ -35,7 +35,7 @@ fileWritten=true;
 //---------------------- SERIAL COMMUNICATION --------------------------------//
 // start the serial port connection and read on newlines
 const serial = new serialPort('/dev/ttyUSB0', {
- baudRate:9600
+ baudRate:115200
 
 });
 const parser = new readLine({
@@ -46,7 +46,7 @@ const parser = new readLine({
 serial.pipe(parser);
 parser.on('data', function(data) {
   var newEntry = unixTime.now()+ ','+ data+'\r\n'; // generate a new data entry 
-
+  //console.log(newEntry);
   if(target){
     arrayA.push(newEntry);
     counter++;
