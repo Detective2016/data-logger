@@ -24,12 +24,11 @@ function writeToFile(array){
 for(var entry in array){ 
   fs.appendFile(fd, array[entry], function (err) {
     if (err) throw err;
-    console.log('Updated!');
   });
 }
+console.log('Update the file');
 array.length=0;
 fileWritten=true;
-
 }
 
 
@@ -46,8 +45,18 @@ const parser = new readLine({
 // Read data that is available on the serial port and send it to the websocket
 serial.pipe(parser);
 parser.on('data', function(data) {
-  var newEntry = unixTime.now()+ ','+ data+'\r\n';
-  if(counter >=10 && fileWritten){
+  var newEntry = unixTime.now()+ ','+ data+'\r\n'; // generate a new data entry 
+
+  if(target){
+    arrayA.push(newEntry);
+    counter++;
+  }else{
+    arrayB.push(newEntry);
+    counter++;
+  }
+
+  if(counter >=1000 && fileWritten){
+ console.log('submited 1000 new entries to be stored'+arrayA.length+'\t'+arrayB.length);
     if(target){
       writeToFile(arrayA);
     }else{
@@ -55,15 +64,6 @@ parser.on('data', function(data) {
     }
     target= !target;
     counter = 0;
-  } 
-  if(target){
-arrayA.push(newEntry);
-  counter++;
-  }else{
-arrayB.push(newEntry);
-counter++;
-
-   }
- console.log('Data:', newEntry + '  '+ counter+'  '+arrayA.length+'  '+arrayB.length);
+  }
 });
 //----------------------------------------------------------------------------//

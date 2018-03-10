@@ -1,3 +1,0 @@
-var serialport = require('serialport'); // serial library
-var moment = require('moment'); // for exact time stamps
-var  fs = require('fs'); // Filesystem access to write the data
