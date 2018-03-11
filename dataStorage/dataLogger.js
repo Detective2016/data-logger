@@ -55,8 +55,8 @@ parser.on('data', function(data) {
     counter++;
   }
 
-  if(counter >=1000 && fileWritten){
- console.log('submited 1000 new entries to be stored'+arrayA.length+'\t'+arrayB.length);
+  if(counter >=5 && fileWritten){
+ console.log('submited 5 new entries to be stored'+arrayA.length+'\t'+arrayB.length);
     if(target){
       writeToFile(arrayA);
     }else{
