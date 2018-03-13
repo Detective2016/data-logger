@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <head>
   <title>Vega Lite Bar Chart</title>
@@ -24,6 +26,7 @@
   var vlSpec = 
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "description": "Blub",
   "data": {
     "url": "data/test.csv",
     "format": {
@@ -33,8 +36,8 @@
   "mark": "line",
   "encoding": {
     "x": {
-      "timeUnit":"utcseconds",
-      "field": "date",
+      "timeUnit":"seconds",
+      "field": "time",
       "type": "temporal"
     },
     "y": {
@@ -42,9 +45,7 @@
       "type": "quantitative"
     }
   }
-}
-;
- 
+};
   // Embed the visualization in the container with id `vis`
   vegaEmbed("#vis", vlSpec);
   </script>

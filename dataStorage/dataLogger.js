@@ -14,9 +14,17 @@ var counter=0;
 var target = false;
 var fileWritten=true;
 
-fs.open(filePath, 'a', function (err, file) {
+fs.open(filePath, 'a+', function (err, file) {
   if (err) throw err;
   fd=file;
+  fs.fstat(fd,function (err, stat) {
+    if (err) throw err;
+    if(stat.size==0){
+      fs.appendFile(fd, "date,value\r\n", function (err) {
+        if (err) throw err;
+     });
+    }
+  });
 }); 
 
 
@@ -45,7 +53,7 @@ const parser = new readLine({
 // Read data that is available on the serial port and send it to the websocket
 serial.pipe(parser);
 parser.on('data', function(data) {
-  var newEntry = unixTime.now()+ ','+ data+'\r\n'; // generate a new data entry 
+  var newEntry = (new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''))+ ','+ data+'\r\n'; // generate a new data entry 
   //console.log(newEntry);
   if(target){
     arrayA.push(newEntry);
