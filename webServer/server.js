@@ -1,11 +1,14 @@
+var dataBase = "../dataBase.csv"
+
 var express = require('express'); // web server application
 var app = express(); // webapp
 var http = require('http').Server(app); // connects http library to server
 var io = require('socket.io')(http); // connect websocket library to server
 var serverPort = 8000;
 
+var ft = require('file-tail').startTailing(dataBase);
 
-var  fs = require('fs'); // Filesystem access to write the data
+var fs = require('fs'); // Filesystem access to write the data
 var fd;
 
 

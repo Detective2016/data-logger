@@ -1,9 +1,7 @@
 var filePath = '../dataBase.csv';
-
+var bufferSize =5;
 var serialPort = require('serialport'); // serial library
 var readLine = serialPort.parsers.Readline; // read serial data as lines
-
-var unixTime = require('unix-timestamp'); // for exact time stamps
 
 var  fs = require('fs'); // Filesystem access to write the data
 var  fd;
@@ -17,11 +15,13 @@ var fileWritten=true;
 fs.open(filePath, 'a+', function (err, file) {
   if (err) throw err;
   fd=file;
+ console.log("Opened file");
   fs.fstat(fd,function (err, stat) {
     if (err) throw err;
     if(stat.size==0){
       fs.appendFile(fd, "date,value\r\n", function (err) {
         if (err) throw err;
+        console.log("File was apparently new created. Wrote first line with keywords.");
      });
     }
   });
@@ -34,7 +34,7 @@ for(var entry in array){
     if (err) throw err;
   });
 }
-console.log('Update the file');
+console.log('File Changes submitted');
 array.length=0;
 fileWritten=true;
 }
@@ -53,7 +53,7 @@ const parser = new readLine({
 // Read data that is available on the serial port and send it to the websocket
 serial.pipe(parser);
 parser.on('data', function(data) {
-  var newEntry = (new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''))+ ','+ data+'\r\n'; // generate a new data entry 
+  var newEntry = (new Date().toString())+ ','+ data+'\r\n'; // generate a new data entry 
   //console.log(newEntry);
   if(target){
     arrayA.push(newEntry);
@@ -63,8 +63,8 @@ parser.on('data', function(data) {
     counter++;
   }
 
-  if(counter >=5 && fileWritten){
- console.log('submited 5 new entries to be stored'+arrayA.length+'\t'+arrayB.length);
+  if(counter >=bufferSize && fileWritten){
+ console.log('Submitting '+bufferSize+' new entries to be stored.');
     if(target){
       writeToFile(arrayA);
     }else{

@@ -33,7 +33,7 @@
   "mark": "line",
   "encoding": {
     "x": {
-      "timeUnit":"utcseconds",
+      "timeUnit":"utcyearmonthdatehoursminutes",
       "field": "date",
       "type": "temporal"
     },
@@ -46,7 +46,12 @@
 ;
  
   // Embed the visualization in the container with id `vis`
-  vegaEmbed("#vis", vlSpec);
+  vegaEmbed("#vis", vlSpec).then(function(res){
+
+
+
+};
+  
   </script>
 </body>
 </html>
