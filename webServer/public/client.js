@@ -21,6 +21,7 @@ var vlSpec ={
 function reRender(res,newEntries){
    console.log('Starting to (re)render the visualization');
    var changeSet = vega.changeset().insert(newEntries);
+   newEntries.length=0;// once we submitted the changes we clean the entry array
    res.view.change('table', changeSet).run();
 }
 vegaEmbed("#vis", vlSpec).then(function(res) {

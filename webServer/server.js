@@ -29,7 +29,6 @@ http.listen(serverPort, function() {
 //----------------------------------------------------------------------------//
 
 
-
 //---------------------- WEBSOCKET COMMUNICATION -----------------------------//
 // this is the websocket event handler and say if someone connects
 // as long as someone is connected, listen for messages
