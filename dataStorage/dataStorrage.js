@@ -1,16 +1,18 @@
 var filePath = '../dataBase.csv';
-var bufferSize =5;
+var maxBufferSize =50;
 var serialPort = require('serialport'); // serial library
 var readLine = serialPort.parsers.Readline; // read serial data as lines
 
 var  fs = require('fs'); // Filesystem access to write the data
 var  fd;
 
-var arrayA=[];
-var arrayB=[];
-var counter=0;
-var target = false;
-var fileWritten=true;
+var writing=false;
+var array=[];
+var tempBuffer=[];
+var timeOutFunction;
+var cancelationCount=0;
+
+
 
 fs.open(filePath, 'a+', function (err, file) {
   if (err) throw err;
@@ -29,15 +31,17 @@ fs.open(filePath, 'a+', function (err, file) {
 
 
 function writeToFile(array){
-for(var entry in array){
-  fs.appendFile(fd, array[entry], function (err) {
-    if (err) throw err;
-  });
-}
-console.log('File Changes submitted');
-array.length=0;
-fileWritten=true;
-}
+  timeOutFunction=null;
+  writing=true;
+  for(var entry in array){
+    fs.appendFile(fd, array[entry], function (err) {
+      if (err) throw err;
+    });
+  }
+  console.log('File Changes submitted');
+  array.length=0;
+  writing=false;
+ }
 
 
 //---------------------- SERIAL COMMUNICATION --------------------------------//
@@ -51,27 +55,31 @@ const parser = new readLine({
 });
 
 // Read data that is available on the serial port and send it to the websocket
+
 serial.pipe(parser);
 parser.on('data', function(data) {
   var newEntry = (new Date().toString())+ ','+ data+'\r\n'; // generate a new data entry
-  //console.log(newEntry);
-  if(target){
-    arrayA.push(newEntry);
-    counter++;
-  }else{
-    arrayB.push(newEntry);
-    counter++;
+  if(writing){
+    tempBuffer.push(newEntry); // if we are writing from the other buffer
+                           // we don't want to add anyhthing new to it
   }
-
-  if(counter >=bufferSize && fileWritten){
- console.log('Submitting '+bufferSize+' new entries to be stored.');
-    if(target){
-      writeToFile(arrayA);
-    }else{
-      writeToFile(arrayB);
+  if(!writing){ /// mostly we wioll just write to the normal buffer
+     if(tempBuffer.length>0){// copy over old records
+      var length= tempBuffer.length;
+       for (var i = 0; i < length; i++) {
+         array.push(tempBuffer.shift());
+       }
+     }
+    array.push(newEntry);
+    if(timeOutFunction!=null){
+       clearTimeout(timeout);
+       cancelationCount++;
+         if (cancelationCount>=maxBufferSize){
+           writing=true; //This happens also in side the funtion its just to make sure we do not lose any data
+           writeToFile(array);
+      }
     }
-    target= !target;
-    counter = 0;
+    timeOutFunction = setTimeout(reRender, 1000, array);
   }
 });
 //----------------------------------------------------------------------------//
