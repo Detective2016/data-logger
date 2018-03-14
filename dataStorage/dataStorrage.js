@@ -25,11 +25,11 @@ fs.open(filePath, 'a+', function (err, file) {
      });
     }
   });
-}); 
+});
 
 
 function writeToFile(array){
-for(var entry in array){ 
+for(var entry in array){
   fs.appendFile(fd, array[entry], function (err) {
     if (err) throw err;
   });
@@ -53,7 +53,7 @@ const parser = new readLine({
 // Read data that is available on the serial port and send it to the websocket
 serial.pipe(parser);
 parser.on('data', function(data) {
-  var newEntry = (new Date().toString())+ ','+ data+'\r\n'; // generate a new data entry 
+  var newEntry = (new Date().toString())+ ','+ data+'\r\n'; // generate a new data entry
   //console.log(newEntry);
   if(target){
     arrayA.push(newEntry);
