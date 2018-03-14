@@ -59,4 +59,4 @@ typings/
 .env
 
 # do not upload the stored sensor data
-.csv
+*.csv
