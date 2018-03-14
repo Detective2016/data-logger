@@ -42,8 +42,11 @@ io.on('connect', function(socket) {
     io.emit('new-line', line);
   });
 
- ft.startTailing(filePath).on('line', function(line){
+ft.startTailing(filePath).on('line', function(line){
    io.emit('new-line', line);
+    if(line.split(',')[0]<1520000000000){
+     console.log(line);
+    }
  });
   // if you get the 'disconnect' message, say the user disconnected
   socket.on('disconnect', function() {

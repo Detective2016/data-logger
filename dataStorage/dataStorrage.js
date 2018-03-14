@@ -29,15 +29,14 @@ fs.open(filePath, 'a+', function (err, file) {
   });
 });
 
-
 function writeToFile(array){
   timeOutFunction=null;
   writing=true;
-  for(var entry in array){
-    fs.appendFile(fd, array[entry], function (err) {
+  //for(var entry in array){
+    fs.appendFile(fd, array.join(''), function (err) {
       if (err) throw err;
     });
-  }
+  //}
   console.log('File Changes submitted');
   array.length=0;
   writing=false;
@@ -58,10 +57,7 @@ const parser = new readLine({
 
 serial.pipe(parser);
 parser.on('data', function(data) {
-  var now= new Date(); //Capture the moment the data was recieved.
-  var dateString = now.toString(); // get the mainvalues nicley formated
-  var finalString= dateString.substring(0,24)+'.'+now.getMilliseconds()+' '+dateString.substring(25,39);// add milliseconds at the right location
-  var newEntry = (finalString','+ data+'\r\n'); // generate a new data entry
+  var newEntry = ((Date.now()+(5*60*60))+','+ data+'\r\n'); // generate a new data entry // the part 5*60*60 is  to adjust for our timezone
   if(writing){
      console.log('we get new data - storing it in temp buffer');
     tempBuffer.push(newEntry); // if we are writing from the other buffer
