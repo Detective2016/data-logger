@@ -6,6 +6,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vega@3.1.0/build/vega.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.2.0/build/vega-lite.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.0.0/build/vega-embed.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 
   <style media="screen">
     /* Add space between Vega-Embed links  */
@@ -15,45 +16,9 @@
   </style>
 </head>
 <body>
-  <h1>Template for Embedding Vega-Lite Visualization</h1>
+  <h1>Template for using Vega-Lite to display data in near to realtime served by a node.js server.</h1>
   <!-- Container for the visualization -->
   <div id="vis"></div>
-
-  <script>
-  // Assign the specification to a local variable vlSpec.
-  var vlSpec = 
-{
-  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-  "data": {
-    "url": "data/test.csv",
-    "format": {
-      "type": "csv"
-    }
-  },
-  "mark": "line",
-  "encoding": {
-    "x": {
-      "timeUnit":"utcyearmonthdatehoursminutes",
-      "field": "date",
-      "type": "temporal"
-    },
-    "y": {
-      "field": "value",
-      "type": "quantitative"
-    }
-  }
-}
-;
- 
-  // Embed the visualization in the container with id `vis`
-  vegaEmbed("#vis", vlSpec).then(function(res){
-
-
-
-};
-  
-  </script>
+  <script src="client.js"></script>
 </body>
 </html>
-
-
