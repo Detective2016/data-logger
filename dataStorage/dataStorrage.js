@@ -60,6 +60,7 @@ serial.pipe(parser);
 parser.on('data', function(data) {
   var newEntry = (new Date().toString())+ ','+ data+'\r\n'; // generate a new data entry
   if(writing){
+     console.log('we get new data - storing it in temp buffer');
     tempBuffer.push(newEntry); // if we are writing from the other buffer
                            // we don't want to add anyhthing new to it
   }
