@@ -68,18 +68,21 @@ parser.on('data', function(data) {
       var length= tempBuffer.length;
        for (var i = 0; i < length; i++) {
          array.push(tempBuffer.shift());
+         console.log('copying from tempbuffer');
        }
      }
     array.push(newEntry);
     if(timeOutFunction!=null){
-       clearTimeout(timeout);
+       clearTimeout(timeOutFunction);
        cancelationCount++;
          if (cancelationCount>=maxBufferSize){
+           cancelationCount=0;
+           console.log('overflowing writing to disk');
            writing=true; //This happens also in side the funtion its just to make sure we do not lose any data
            writeToFile(array);
       }
     }
-    timeOutFunction = setTimeout(reRender, 1000, array);
+    timeOutFunction = setTimeout(writeToFile, 1000, array);
   }
 });
 //----------------------------------------------------------------------------//
