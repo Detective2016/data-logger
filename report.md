@@ -54,3 +54,6 @@ void loop() {
 ```
 
 ## Part C
+The circuit can be used to reduce noise. 
+
+## Part D
