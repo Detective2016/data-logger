@@ -54,6 +54,13 @@ void loop() {
 ```
 
 ## Part C
-The circuit can be used to reduce noise. 
+The circuit with capacitors can be used to reduce noise. When we turn the rotary encoder, we can see changes in the output. <br />
 
 ## Part D
+1a. Turn in a copy of your final state diagram. <br />
+2a. How many byte-sized data samples can you store on the Atmega328? <br />
+1024 as that's when the memory starts to rewrite from the beginning <br />
+b. How would you get your analog data from the ADC to be byte-sized? <br />
+For the analog inputs we divide them by 4 to translate 0-1023 value to each byte of 0-255 to store in EEPROM. <br />
+3. We did not use the Raspberry Pi. <br />
+4a. Use the lab camera or your own camera/cell phone to record and upload a short demo video of your logger in action. <br />
