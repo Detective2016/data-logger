@@ -53,6 +53,8 @@ void loop() {
 }
 ```
 
+![Accelerometer](Accelerometer.JPG)
+
 ## Part C
 The circuit with capacitors can be used to reduce noise. When we turn the rotary encoder, we can see changes in the output. <br />
 
