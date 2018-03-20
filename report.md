@@ -1,4 +1,5 @@
 # Lab05
+## collaborated with Michaela Brown
 
 ## Part A
 a. Based on the readings from the serial monitor, what is the range of the analog values being read? <br />
