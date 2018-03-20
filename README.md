@@ -1,1 +1,4 @@
 # data-logger
+
+resources: <br />
+http://www.instructables.com/id/DIY-Robotic-Hand-Controlled-by-a-Glove-and-Arduino/
