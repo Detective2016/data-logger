@@ -8,7 +8,7 @@ b. How many bits of resolution does the analog to digital converter (ADC) on the
 
 ## Part B
 1a. Describe the voltage change over the sensing range of the sensor. A sketch of voltage vs. distance would work also. Does it match up with what you expect from the datasheet? <br />
-
+The result mostly matches with what's described in the data sheet, whereas the voltage increases sharply in the first 20cm. When the object gets too far, the distance sensor would not be able to sense the object anymore. <br />
 ![graph](DrawingGraph.jpg)
 ![graph](original.png)
 
@@ -65,7 +65,7 @@ The circuit with capacitors can be used to reduce noise. When we turn the rotary
 
 ## Part D
 1a. Turn in a copy of your final state diagram. <br />
-![StateDiagram](State Diagram.jpg.jpg)
+![StateDiagram](State Diagram.jpg)
 2a. How many byte-sized data samples can you store on the Atmega328? <br />
 1024 as that's when the memory starts to rewrite from the beginning <br />
 b. How would you get your analog data from the ADC to be byte-sized? <br />
